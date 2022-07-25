@@ -28,13 +28,13 @@ class PostDetailView(DetailView):
 
 class PostCreateView(CreateView):
     model = Post
-    fields = ['adres', 'payment', 'amount', 'phone', 'comment', 'platform', 'status']
+    fields = ['adres', 'payment', 'amount','phone', 'comment', 'platform']
     success_url = '/'
 
 
 class PostUpdateView(UpdateView):
     model = Post
-    fields = ['adres', 'payment', 'amount', 'phone', 'comment', 'platform', 'status']
+    fields = ['adres', 'payment', 'amount','phone', 'comment', 'platform']
     success_url = '/'
 
 

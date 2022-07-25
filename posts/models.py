@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from phone_field import PhoneField
 
 
 class Post(models.Model):
@@ -15,7 +16,7 @@ class Post(models.Model):
     payment = models.CharField(max_length=10, choices=choose_payment, default='zaplacone')
 
     amount = models.CharField(max_length=5, null = False)
-    phone = models.CharField(max_length=12)
+    phone = models.CharField(max_length=13, null = False,default="+48")
     comment = models.CharField(max_length=200, null=True, blank=True)
 
     choose_platform = (
