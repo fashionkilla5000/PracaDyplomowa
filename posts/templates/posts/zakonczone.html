@@ -1,16 +1,24 @@
 {% extends "posts/base.html" %}
+{% load static %}
 {% block content %}
+
     {% for post in posts %}
+    {% if post.zakonczone %}
         <article class="media content-section">
-          <div class="media-body">
+
+          <div class="col-sm-10">
             <div class="article-metadata">
               <small class="text-muted">{{ post.date|date:"D, d M, G:i" }}</small>
-            </div>
-            <h5><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}</a></h5>
 
+            </div>
+
+            <h5><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}</a> </h5>
 
           </div>
+
         </article>
+    {% endif %}
     {% endfor %}
+
 
 {% endblock content %}

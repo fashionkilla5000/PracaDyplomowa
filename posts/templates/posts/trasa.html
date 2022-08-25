@@ -1,0 +1,58 @@
+{% extends "posts/base.html" %}
+{% load static %}
+{% block content %}
+
+    {% for post in posts %}
+    {% if post.trasa %}
+        <article class="media content-section">
+
+          <div class="col-sm-10">
+            <div class="article-metadata">
+              <small class="text-muted">{{ post.date|date:"D, d M, G:i" }}</small>
+
+            </div>
+
+<!--          {% if post.no_of_likes and user.is_restaurator %}-->
+
+<!--              <audio autoplay>-->
+<!--                  <source src="{% static 'goat.mp3' %}" type="audio/mpeg">-->
+<!--              </audio>-->
+<!--            <div class="alert alert-primary" role="alert">-->
+<!--              Proszę przygotowywać zamówienie!-->
+<!--                <script>-->
+<!--                    Swal.fire('Zamówienie do przygotowania!')-->
+<!--                </script>-->
+<!--            </div>-->
+
+<!--        {% endif %}-->
+            <h5><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}</a> </h5>
+
+
+          </div>
+            <div class="przycisk">
+                {% if user.is_driver %}
+                <a href="/change-status-zakoncz?post_id={{post.id}}">Zakończ<br></a>
+                {% endif %}
+
+            </div>
+<!--            <div class="przycisk">-->
+<!--                {% if user.is_driver %}-->
+<!--                <a href="/like-post?post_id={{post.id}}">Zabierz<br></a>-->
+<!--                {% else %}-->
+<!--                <a href="/change-status?post_id={{post.id}}">Przygotuj<br></a>-->
+<!--                {% endif %}-->
+<!--                <small class="text-muted">Zabiera: {{ post.no_of_likes }}<br></small>-->
+
+<!--            </div>-->
+        </article>
+    {% endif %}
+    {% endfor %}
+
+
+<!--    <script>-->
+<!--        window.setTimeout(function () {-->
+<!--        location.href = "http://127.0.0.1:8000/";-->
+<!--    }, 5000); // refresh/redirect after 5 seconds.-->
+<!--    </script>-->
+
+{% endblock content %}

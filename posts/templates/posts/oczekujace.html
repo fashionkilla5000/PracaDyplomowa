@@ -1,0 +1,69 @@
+{% extends "posts/base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+    {% for post in posts %}
+    {% if post.oczekujace %}
+        <article class="media content-section">
+
+          <div class="col-sm-10">
+            <div class="article-metadata">
+              <small class="text-muted">{{ post.date|date:"D, d M, G:i" }}</small>
+
+            </div>
+
+              {% if user.is_driver and post.no_of_likes == None %}
+
+              <audio autoplay>
+                  <source src="{% static 'sound/nutnut.mp3' %}" type="audio/mpeg">
+              </audio>
+            <div class="alert alert-primary" role="alert">
+              Bierz to!
+                <script>
+                    Swal.fire('Coś tu jest do zabrania!')
+                </script>
+            </div>
+
+            {% endif %}
+
+          {% if user.is_restaurator and post.no_of_likes %}
+
+              <audio autoplay>
+                  <source src="{% static 'sound/goat.mp3' %}" type="audio/mpeg">
+              </audio>
+            <div class="alert alert-primary" role="alert">
+              Proszę przygotowywać zamówienie!
+                <script>
+                    Swal.fire('Zamówienie do przygotowania!')
+                </script>
+            </div>
+
+        {% endif %}
+            <h5><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}</a> </h5>
+
+
+          </div>
+
+            <div class="przycisk">
+                {% if user.is_driver %}
+                <a href="/like-post?post_id={{post.id}}">Zabierz<br></a>
+                {% else %}
+                <a href="/change-status?post_id={{post.id}}">Przygotuj<br></a>
+                {% endif %}
+                <small class="text-muted">Zabiera: {{ post.no_of_likes }}<br></small>
+
+            </div>
+        </article>
+    {% endif %}
+    {% endfor %}
+
+
+    <script>
+        window.setTimeout(function () {
+        location.href = "http://127.0.0.1:8000/";
+    }, 5000); // refresh/redirect after 5 seconds.
+    </script>
+
+{% endblock content %}
