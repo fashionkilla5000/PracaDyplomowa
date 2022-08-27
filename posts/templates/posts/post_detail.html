@@ -12,12 +12,11 @@
       <h2 class="article-title">{{ object.adres }}</h2>
       <p class="article-content">Kwota: {{ object.amount }}</p>
       <p class="article-content">Płatność: {{ object.payment }}</p>
-      <p class="article-content">Prefix: {{ object.phone_prefix }}</p>
-      <p class="article-content">Tel. {{ object.phone }}</p>
+      <p class="article-content">Tel: {{ object.phone }}</p>
       <p class="article-content">Komentarz: {{ object.comment }}</p>
       <p class="article-content">Platforma: {{ object.platform }}</p>
       <a class="btn btn-secondary btn-sm mt-1 mb-1" href="https://www.google.com/maps/place/{{ object.adres }},+Olsztyn">Nawiguj</a>
-      <a class="btn btn-danger btn-sm mt-1 mb-1" href="tel:+48{{object.phone}}">Zadzwon</a>
+      <a class="btn btn-danger btn-sm mt-1 mb-1" href="tel:{{object.phone}}">Zadzwon</a>
     </div>
 
   </article>

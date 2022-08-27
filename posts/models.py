@@ -19,7 +19,7 @@ class Post(models.Model):
     payment = models.CharField(max_length=10, choices=choose_payment, default='zaplacone')
 
     amount = models.CharField(max_length=5, null = False)
-    phone = models.CharField(max_length=13, null = False,default="+48")
+    phone = models.CharField(max_length=13, null = False)
     comment = models.CharField(max_length=200, null=True, blank=True)
 
     choose_platform = (
