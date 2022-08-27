@@ -1,6 +1,8 @@
 from django.contrib import messages
 from .models import Post, LikePost
 from users.models import CustomUser
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from django.shortcuts import render, redirect
 from django.views.generic import (
     ListView,
@@ -18,40 +20,47 @@ from django.views.generic import (
 #     return render(request, 'posts/oczekujace.html', context)
 #
 
-class PostListView_oczekujace(ListView):
+class PostListView_oczekujace(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'posts/oczekujace.html'  # <posts>/<model>_<viewtype>.html
+    login_url = '/login/'
     context_object_name = 'posts'
 
-class PostListView_trasa(ListView):
+class PostListView_trasa(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'posts/trasa.html'  # <posts>/<model>_<viewtype>.html
+    login_url = '/login/'
     context_object_name = 'posts'
 
-class PostListView_zakonczone(ListView):
+class PostListView_zakonczone(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'posts/zakonczone.html'  # <posts>/<model>_<viewtype>.html
+    login_url = '/login/'
     context_object_name = 'posts'
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
+    login_url = '/login/'
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['adres', 'payment', 'amount','phone', 'comment', 'platform']
+    login_url = '/login/'
     success_url = '/'
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     fields = ['adres', 'payment', 'amount','phone', 'comment', 'platform']
+    login_url = '/login/'
     success_url = '/'
 
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
+    login_url = '/login/'
     success_url = '/'
 
 
