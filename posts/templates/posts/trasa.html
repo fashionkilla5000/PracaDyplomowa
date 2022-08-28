@@ -31,7 +31,7 @@
           </div>
             <div class="przycisk">
                 {% if user.is_driver %}
-                <a href="/change-status-zakoncz?post_id={{post.id}}">Zakończ<br></a>
+                <button class="button" onclick=javascript:location.href="/change-status-zakoncz?post_id={{post.id}}">Zakończ<br></button>
                 {% endif %}
 
             </div>

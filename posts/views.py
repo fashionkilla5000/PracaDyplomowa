@@ -46,14 +46,14 @@ class PostDetailView(LoginRequiredMixin, DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['adres', 'payment', 'amount','phone', 'comment', 'platform']
+    fields = ['adres', 'nr_domu', 'płatność', 'kwota', 'telefon', 'komentarz', 'platforma']
     login_url = '/login/'
     success_url = '/'
 
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
-    fields = ['adres', 'payment', 'amount','phone', 'comment', 'platform']
+    fields = ['adres', 'nr_domu', 'płatność', 'kwota', 'telefon', 'komentarz', 'platforma']
     login_url = '/login/'
     success_url = '/'
 

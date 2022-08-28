@@ -19,12 +19,10 @@
               <audio autoplay>
                   <source src="{% static 'sound/nutnut.mp3' %}" type="audio/mpeg">
               </audio>
-            <div class="alert alert-primary" role="alert">
-              Bierz to!
                 <script>
                     Swal.fire('Coś tu jest do zabrania!')
                 </script>
-            </div>
+
 
             {% endif %}
 
@@ -33,26 +31,24 @@
               <audio autoplay>
                   <source src="{% static 'sound/goat.mp3' %}" type="audio/mpeg">
               </audio>
-            <div class="alert alert-primary" role="alert">
-              Proszę przygotowywać zamówienie!
                 <script>
                     Swal.fire('Zamówienie do przygotowania!')
                 </script>
-            </div>
+
 
         {% endif %}
-            <h5><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}</a> </h5>
+            <h4><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}/{{post.nr_domu}}</a> </h4>
 
 
           </div>
-
             <div class="przycisk">
+                <div class="article-metadata" ><small class="text-muted">Zabiera: {{ post.no_of_likes }}</small></div>
                 {% if user.is_driver %}
-                <a href="/like-post?post_id={{post.id}}">Zabierz<br></a>
+                <button class="button" onclick=javascript:location.href="/like-post?post_id={{post.id}}">Zabierz<br></button>
                 {% else %}
-                <a href="/change-status?post_id={{post.id}}">Przygotuj<br></a>
+                <button class="button" onclick=javascript:location.href="/change-status?post_id={{post.id}}">Przygotuj<br></button>
                 {% endif %}
-                <small class="text-muted">Zabiera: {{ post.no_of_likes }}<br></small>
+
 
             </div>
         </article>

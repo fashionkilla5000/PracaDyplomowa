@@ -10,17 +10,18 @@ class Post(models.Model):
     no_of_likes = models.CharField(max_length=50, null = True, blank=True)
 
     adres = models.CharField(max_length=50, null = False)
+    nr_domu = models.CharField(max_length=4, null = False, blank=True)
 
     choose_payment = (
         ('karta','Karta'),
         ('gotowka','Gotowka'),
         ('zaplacone','Zaplacone')
     )
-    payment = models.CharField(max_length=10, choices=choose_payment, default='zaplacone')
+    płatność = models.CharField(max_length=10, choices=choose_payment, default='zaplacone')
 
-    amount = models.CharField(max_length=5, null = False)
-    phone = models.CharField(max_length=13, null = False)
-    comment = models.CharField(max_length=200, null=True, blank=True)
+    kwota = models.CharField(max_length=5, null = False)
+    telefon = models.CharField(max_length=13, null = False)
+    komentarz = models.CharField(max_length=200, null=True, blank=True)
 
     choose_platform = (
         ('uber','Uber'),
@@ -28,7 +29,7 @@ class Post(models.Model):
         ('glovo','Glovo'),
         ('tel','Tel')
     )
-    platform = models.CharField(max_length=5, choices=choose_platform, default='glovo')
+    platforma = models.CharField(max_length=5, choices=choose_platform, default='glovo')
 
     oczekujace = models.BooleanField(default=True)
     trasa = models.BooleanField(default=False)
