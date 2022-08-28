@@ -25,16 +25,33 @@
 <!--            </div>-->
 
 <!--        {% endif %}-->
-            <h5><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}</a> </h5>
-
+            <h5><a class="article-title">{{ post.adres }}</a> </h5>
+            <br>
+              <table class="table-sm">
+          <tbody>
+            <tr>
+              <td>Płatność</td>
+              <th scope="row">{{ post.płatność }}</th>
+            </tr>
+            <tr>
+              <td>Kwota</td>
+              <th scope="row">{{ post.kwota }}</th>
+            </tr>
+            <tr>
+              <td>Komentarz</td>
+              <th scope="row">{{ object.komentarz }}</th>
+            </tr>
+          </tbody>
+        </table>
 
           </div>
-            <div class="przycisk">
-                {% if user.is_driver %}
-                <button class="button" onclick=javascript:location.href="/change-status-zakoncz?post_id={{post.id}}">Zakończ<br></button>
-                {% endif %}
 
+            <div class="przycisk">
+                <button class="button button2" onclick="javascript:location.href='tel:{{object.phone}}'">Zadzwoń</button>
+                <button class="button" onclick="javascript:location.href='https://www.google.com/maps/place/{{ object.adres }},+Olsztyn'">Nawiguj</button>
+                <button class="button button1" onclick=javascript:location.href="/change-status-zakoncz?post_id={{post.id}}">Zakończ</button>
             </div>
+
 <!--            <div class="przycisk">-->
 <!--                {% if user.is_driver %}-->
 <!--                <a href="/like-post?post_id={{post.id}}">Zabierz<br></a>-->

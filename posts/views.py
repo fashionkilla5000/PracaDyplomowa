@@ -61,7 +61,7 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     login_url = '/login/'
-    success_url = '/'
+    success_url = '/post/zakonczone/'
 
 
 def change_status(request):

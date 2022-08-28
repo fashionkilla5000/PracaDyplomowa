@@ -11,6 +11,7 @@
           <div class="col-sm-10">
             <div class="article-metadata">
               <small class="text-muted">{{ post.date|date:"D, d M, G:i" }}</small>
+              <small class="text-muted" id="zabiera">Zabiera: {{ post.no_of_likes }}</small>
 
             </div>
 
@@ -37,12 +38,14 @@
 
 
         {% endif %}
+            {% if user.is_driver %}
+            <h4><a class="article-title" href='https://www.google.com/maps/place/{{ post.adres }},+Olsztyn'>{{ post.adres }}/{{post.nr_domu}}</a> </h4>
+            {% else %}
             <h4><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}/{{post.nr_domu}}</a> </h4>
-
+              {% endif %}
 
           </div>
             <div class="przycisk">
-                <div class="article-metadata" ><small class="text-muted">Zabiera: {{ post.no_of_likes }}</small></div>
                 {% if user.is_driver %}
                 <button class="button" onclick=javascript:location.href="/like-post?post_id={{post.id}}">Zabierz<br></button>
                 {% else %}
