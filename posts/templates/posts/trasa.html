@@ -6,7 +6,7 @@
     {% if post.trasa %}
         <article class="media content-section">
 
-          <div class="col-sm-10">
+          <div class="col-sm-8">
             <div class="article-metadata">
               <small class="text-muted">{{ post.date|date:"D, d M, G:i" }}</small>
 
@@ -48,7 +48,7 @@
 
             <div class="przycisk">
                 <button class="button button2" onclick="javascript:location.href='tel:{{object.phone}}'">Zadzwoń</button>
-                <button class="button" onclick="javascript:location.href='https://www.google.com/maps/place/{{ object.adres }},+Olsztyn'">Nawiguj</button>
+                <button class="button" onclick="javascript:location.href='https://www.google.com/maps/place/{{ post.adres }},+Olsztyn'">Nawiguj</button>
                 <button class="button button1" onclick=javascript:location.href="/change-status-zakoncz?post_id={{post.id}}">Zakończ</button>
             </div>
 

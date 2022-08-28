@@ -30,10 +30,11 @@ ul {
 
 .content-section {
   background: #ffffff;
-  padding: 10px 20px;
+  padding: 10px 0px;
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 20px;
+  width:100%;
 }
 
 .article-title {
@@ -143,5 +144,6 @@ text-align: center;
 .przycisk{
   text-align: right;
   width:85px;
-  right: 6%;
+  right: 10%;
 }
+
