@@ -2,74 +2,48 @@
 {% load static %}
 {% block content %}
 
+
+
     {% for post in posts %}
     {% if post.trasa %}
-        <article class="media content-section">
 
-          <div class="col-sm-8">
-            <div class="article-metadata">
-              <small class="text-muted">{{ post.date|date:"D, d M, G:i" }}</small>
+    <div class="row">
+        <div class="col-md-10 trasa">
+            <div class="dane">
+                <small class="text-muted">{{ post.date|date:"D, d M, G:i" }}</small>
+                <h4><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}/{{post.nr_domu}}</a> </h4>
+                <br>
+
+                <table class="table-sm">
+                  <tbody>
+                    <tr>
+                      <td>Płatność</td>
+                      <th scope="row">{{ post.płatność }}</th>
+                    </tr>
+                    <tr>
+                      <td>Kwota</td>
+                      <th scope="row">{{ post.kwota }}</th>
+                    </tr>
+                    <tr>
+                      <td>Komentarz</td>
+                      <th scope="row">{{ object.komentarz }}</th>
+                    </tr>
+                  </tbody>
+                </table>
 
             </div>
 
-<!--          {% if post.no_of_likes and user.is_restaurator %}-->
-
-<!--              <audio autoplay>-->
-<!--                  <source src="{% static 'goat.mp3' %}" type="audio/mpeg">-->
-<!--              </audio>-->
-<!--            <div class="alert alert-primary" role="alert">-->
-<!--              Proszę przygotowywać zamówienie!-->
-<!--                <script>-->
-<!--                    Swal.fire('Zamówienie do przygotowania!')-->
-<!--                </script>-->
-<!--            </div>-->
-
-<!--        {% endif %}-->
-            <h5><a class="article-title">{{ post.adres }}</a> </h5>
-            <br>
-              <table class="table-sm">
-          <tbody>
-            <tr>
-              <td>Płatność</td>
-              <th scope="row">{{ post.płatność }}</th>
-            </tr>
-            <tr>
-              <td>Kwota</td>
-              <th scope="row">{{ post.kwota }}</th>
-            </tr>
-            <tr>
-              <td>Komentarz</td>
-              <th scope="row">{{ object.komentarz }}</th>
-            </tr>
-          </tbody>
-        </table>
-
-          </div>
-
+        </div>
+        <div class="col-md-2 text-center" id="przycisk">
             <div class="przycisk">
-                <button class="button button2" onclick="javascript:location.href='tel:{{object.phone}}'">Zadzwoń</button>
-                <button class="button" onclick="javascript:location.href='https://www.google.com/maps/place/{{ post.adres }},+Olsztyn'">Nawiguj</button>
-                <button class="button button1" onclick=javascript:location.href="/change-status-zakoncz?post_id={{post.id}}">Zakończ</button>
+                <button class="button btn-rounded btn-nawiguj" onclick="javascript:location.href='https://www.google.com/maps/place/{{ post.adres }},+Olsztyn'"> Nawiguj </button>
+                <button class="button btn-rounded btn-zadzwon" onclick="javascript:location.href='tel:{{object.phone}}'"> Zadzwoń </button>
+                <button class="button btn-rounded btn-danger" onclick=javascript:location.href="/change-status-zakoncz?post_id={{post.id}}"> Zakończ </button>
             </div>
+        </div>
+    </div>
 
-<!--            <div class="przycisk">-->
-<!--                {% if user.is_driver %}-->
-<!--                <a href="/like-post?post_id={{post.id}}">Zabierz<br></a>-->
-<!--                {% else %}-->
-<!--                <a href="/change-status?post_id={{post.id}}">Przygotuj<br></a>-->
-<!--                {% endif %}-->
-<!--                <small class="text-muted">Zabiera: {{ post.no_of_likes }}<br></small>-->
-
-<!--            </div>-->
-        </article>
     {% endif %}
     {% endfor %}
-
-
-<!--    <script>-->
-<!--        window.setTimeout(function () {-->
-<!--        location.href = "http://127.0.0.1:8000/";-->
-<!--    }, 5000); // refresh/redirect after 5 seconds.-->
-<!--    </script>-->
 
 {% endblock content %}

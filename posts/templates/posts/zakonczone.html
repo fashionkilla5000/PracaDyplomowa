@@ -4,23 +4,21 @@
 
     {% for post in posts %}
     {% if post.zakonczone %}
-        <article class="media content-section">
 
-          <div class="col-sm-10">
-            <div class="article-metadata">
-              <small class="text-muted">{{ post.date|date:"D, d M, G:i" }}</small>
-
+    <div class="row">
+        <div class="col-md-10">
+            <div class="dane">
+                <small class="text-muted">{{ post.date|date:"D, d M, G:i" }}</small>
+                <h4><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}/{{post.nr_domu}}</a> </h4>
             </div>
 
-            <h5><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}</a> </h5>
+        </div>
+        <div class="col-md-2">
+            <button class="button btn-rounded btn-delete" onclick="javascript:location.href='{% url 'post-delete' post.id %}'"> Usuń </button>
+        </div>
+    </div>
 
-          </div>
-
-
-
-        </article>
     {% endif %}
     {% endfor %}
-
 
 {% endblock content %}

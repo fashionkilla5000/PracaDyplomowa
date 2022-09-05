@@ -1,11 +1,13 @@
 {% extends "posts/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
+
+<div class="col-md-12">
+    <div class="content">
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Log In</legend>
+                <legend class="border-bottom mb-4">Zaloguj się</legend>
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
@@ -17,6 +19,7 @@
                 Nie jesteś zarejestrowany? <a class="ml-2" href="{% url 'register' %}">Zarejestruj się</a>
             </small>
         </div>
-
     </div>
+</div>
+
 {% endblock content %}

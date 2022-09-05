@@ -1,149 +1,106 @@
 body {
   background: #A9A9A9;
-  color: #dc3545;
   margin-top: 5rem;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: #444444;
-}
-
-ul {
-  margin: 0;
 }
 
 .bg-steel {
   background-color: #5f788a;
 }
 
-.site-header .navbar-nav .nav-link {
-  color: #cbd5db;
-}
-
-.site-header .navbar-nav .nav-link:hover {
-  color: #ffffff;
-}
-
-.site-header .navbar-nav .nav-link.active {
-  font-weight: 500;
-}
-
-.content-section {
-  background: #ffffff;
-  padding: 10px 0px;
-  border: 1px solid #dddddd;
-  border-radius: 3px;
-  margin-bottom: 20px;
-  width:100%;
-}
-
 .article-title {
   color: #444444;
 }
 
-a.article-title:hover {
-  color: #428bca;
-  text-decoration: none;
-}
-
-.article-content {
-  white-space: pre-line;
-}
-
-.article-img {
-  height: 65px;
-  width: 65px;
-  margin-right: 16px;
-}
-
-.article-metadata {
-  padding-bottom: 1px;
-  margin-bottom: 4px;
-  border-bottom: 1px solid #e3e3e3
-}
-
-.article-metadata a:hover {
-  color: #333;
-  text-decoration: none;
-}
-
-.article-svg {
-  width: 25px;
-  height: 25px;
-  vertical-align: middle;
-}
-
-.account-img {
-  height: 125px;
-  width: 125px;
-  margin-right: 20px;
-  margin-bottom: 16px;
-}
-
-.account-heading {
-  font-size: 2.5rem;
-}
-#opcja1{
-background: grey;
-margin: auto;
-width: 60%;
-border: 2px solid black;
-padding: 10px;
-text-align: center;
-}
-
-#opcja2{
-background: #cf5c5c;
-margin: auto;
-width: 60%;
-border: 2px solid black;
-padding: 10px;
-text-align: center;
-}
-
 .button {
+
   background-color: #5F788A;
   border: none;
   color: white;
-  padding: 15px 20px;
+  padding: 10px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 12px;
-  margin: 9px 0px;
+  margin: 10px 0px;
   cursor: pointer;
+  width: 100px;
+  height: 40px;
+  border-radius: 20px;
+
 }
-.button1{
+
+.button:hover {
+  transition-duration: 0.1s;
+  opacity:0.5;
+}
+
+.btn-rounded{
+    margin-top:50px;
+    margin-bottom:50px;
+    width:55px;
+    height:50px;
+    background-color: green;
+    padding: 0 5px;
+}
+
+.btn-zadzwon{
+  margin-top:20px;
+  margin-bottom:20px;
+}
+
+.btn-danger{
+  margin-top:0px;
+  margin-bottom:35px;
   background-color: red;
-  border: none;
-  color: white;
-  padding: 15px 20px;
-  text-align: right;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 12px;
-  margin: 9px 0px;
-  cursor: pointer;
-}
-.button2{
-  background-color: green;
-  border: none;
-  color: white;
-  padding: 15px 20px;
-  text-align: right;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 12px;
-  margin: 9px 0px;
-  cursor: pointer;
 }
 
-#zabiera{
-  margin: 10px;
-}
-.przycisk{
-  text-align: right;
-  width:85px;
-  right: 10%;
+.btn-nawiguj{
+  margin-top:35px;
+  margin-bottom:0;
+  background-color: #5F788A;
+  opacity: 0.8;
 }
 
+.btn-delete{
+background-color:red;
+
+}
+
+.nav-link{
+    text-align:right;
+}
+
+.col-md-12{
+padding-bottom:30px;
+}
+
+.col-md-10{
+    background-color:#fff;
+    margin-bottom:20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    width:75%;
+    border-radius: 20px 0px 0px 20px;
+    text-align: center;
+}
+
+.col-md-2{
+
+    background-color: white;
+    border-radius: 0px 20px 20px 0px;
+    margin-bottom:20px;
+    width:25%;
+}
+
+.dane{
+    margin-top:12px;
+    margin-left:10px;
+    margin-bottom:15px;
+}
+
+.content{
+    background-color:white;
+    text-align:center;
+    padding-top:15px;
+    padding-bottom:15px;
+}
