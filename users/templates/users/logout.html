@@ -3,22 +3,13 @@
 
 <div class="col-md-12">
     <div class="content">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Dodaj</button>
-            </div>
-        </form>
+        <h2>Wylogowałeś się poprawnie</h2>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                <a href="{% url 'login' %}">Zaloguj się ponownie</a>
+            </small>
+        </div>
     </div>
 </div>
 
-    <h2>You have been logged out</h2>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            <a href="{% url 'login' %}">Log In Again</a>
-        </small>
-    </div>
 {% endblock content %}

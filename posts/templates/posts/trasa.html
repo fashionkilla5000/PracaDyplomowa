@@ -37,7 +37,7 @@
         <div class="col-md-2 text-center" id="przycisk">
             <div class="przycisk">
                 <button class="button btn-rounded btn-nawiguj" onclick="javascript:location.href='https://www.google.com/maps/place/{{ post.adres }},+Olsztyn'"> Nawiguj </button>
-                <button class="button btn-rounded btn-zadzwon" onclick="javascript:location.href='tel:{{object.phone}}'"> Zadzwoń </button>
+                <button class="button btn-rounded btn-zadzwon" onclick="javascript:location.href='tel:+48{{object.phone}}'"> Zadzwoń </button>
                 <button class="button btn-rounded btn-danger" onclick=javascript:location.href="/change-status-zakoncz?post_id={{post.id}}"> Zakończ </button>
             </div>
         </div>
