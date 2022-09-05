@@ -45,6 +45,8 @@
 
     </nav>
 
+    {% if user.is_authenticated %}
+
     <ul class="nav nav-pills nav-justified fixed-bottom navbar-dark">
       <li class="nav-item">
         <a class="button" href="{% url 'posts-home' %}">Oczekujące</a>
@@ -62,6 +64,8 @@
         <a class="button" href="{% url 'posts-zakonczone' %}">Archiwum</a>
       </li>
     </ul>
+
+    {% endif %}
 
     <main role="main" class="container">
 
