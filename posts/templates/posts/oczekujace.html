@@ -8,8 +8,11 @@
     <div class="row">
         <div class="col-md-10">
             <div class="dane">
+                <h4><a class="article-title">{{ user.restauracja }}</a> </h4>
+
                 <small class="text-muted">{{ post.date|date:"D, d M, G:i" }}</small>
-                <h4><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}/{{post.nr_domu}}</a> </h4>
+                <h4><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}/{{post.nr_mieszkania}}</a> </h4>
+
                 {% if post.no_of_likes != None %}
                 <h6> Zabiera: {{ post.no_of_likes }} </h6>
                 {% endif %}
@@ -17,15 +20,41 @@
 
         </div>
         <div class="col-md-2">
-            {% if user.is_driver %}
+            {% if user.stanowisko == "Driver" %}
             <button class="button btn-rounded" onclick=javascript:location.href="/like-post?post_id={{post.id}}"> Zabierz </button>
             {% else %}
-            <button class="button btn-rounded" onclick=javascript:location.href="/change-status?post_id={{post.id}}"> OK </button>
+            {% if post.no_of_likes %}
+
+                <script>
+                    Swal.fire({
+                      title: '{{ post.no_of_likes }} \n zabierze zamówienie: \n {{ post.adres }}',
+                      showCancelButton: true,
+                      confirmButtonText: 'Save',
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        window.location.href = "/change-status?post_id={{post.id}}";
+
+                      } else if (result.isDenied) {
+                        Swal.fire('Changes are not saved', '', 'info')
+                      }
+                    })
+                </script>
+
+            {% endif %}
             {% endif %}
         </div>
     </div>
 
+    <script>
+        function autoRefresh() {
+            window.location = window.location.href;
+        }
+        setInterval('autoRefresh()', 10000);
+    </script>
+
     {% endif %}
     {% endfor %}
+
+
 
 {% endblock content %}

@@ -5,16 +5,16 @@
 
 
     {% for post in posts %}
-    {% if post.trasa %}
+    {% if post.trasa and post.no_of_likes == user.username %}
 
     <div class="row">
         <div class="col-md-10 trasa">
             <div class="dane">
                 <small class="text-muted">{{ post.date|date:"D, d M, G:i" }}</small>
-                <h4><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}/{{post.nr_domu}}</a> </h4>
+                <h4><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}/{{post.nr_mieszkania}}</a> </h4>
                 <br>
 
-                <table class="table-sm">
+                <table class="table-sm" style="margin-left:auto;margin-right:auto;">
                   <tbody>
                     <tr>
                       <td>Płatność</td>
@@ -36,7 +36,7 @@
         </div>
         <div class="col-md-2 text-center" id="przycisk">
             <div class="przycisk">
-                <button class="button btn-rounded btn-nawiguj" onclick="javascript:location.href='https://www.google.com/maps/place/{{ post.adres }},+Olsztyn'"> Nawiguj </button>
+                <button class="button btn-rounded btn-nawiguj" onclick="javascript:location.href='https://www.google.com/maps/place/{{ post.adres }},+{{post.miasto}}'"> Nawiguj </button>
                 <button class="button btn-rounded btn-zadzwon" onclick="javascript:location.href='tel:{{post.telefon}}'"> Zadzwoń </button>
                 <button class="button btn-rounded btn-danger" onclick=javascript:location.href="/change-status-zakoncz?post_id={{post.id}}"> Zakończ </button>
             </div>

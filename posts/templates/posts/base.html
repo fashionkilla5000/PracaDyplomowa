@@ -25,9 +25,11 @@
         Fast Del1very
       </a>
 
+        {% if user.is_authenticated %}
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <a id="nickname"> {{ user.stanowisko }} | {{ user.username }} </a>
       </button>
+        {% endif %}
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
@@ -51,7 +53,7 @@
       <li class="nav-item">
         <a class="button" href="{% url 'posts-home' %}">Oczekujące</a>
       </li>
-      {% if user.is_driver %}
+      {% if user.stanowisko == "Driver" %}
       <li class="nav-item">
         <a class="button" href="{% url 'posts-trasa' %}">Trasa</a>
       </li>

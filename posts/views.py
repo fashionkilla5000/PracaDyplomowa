@@ -46,14 +46,14 @@ class PostDetailView(LoginRequiredMixin, DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['adres', 'nr_domu', 'płatność', 'kwota', 'telefon', 'komentarz', 'platforma']
+    fields = ['miasto','adres', 'nr_mieszkania', 'płatność', 'kwota', 'telefon', 'komentarz', 'platforma']
     login_url = '/login/'
     success_url = '/'
 
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
-    fields = ['adres', 'nr_domu', 'płatność', 'kwota', 'telefon', 'komentarz', 'platforma']
+    fields = ['adres', 'nr_mieszkania', 'płatność', 'kwota', 'telefon', 'komentarz', 'platforma']
     login_url = '/login/'
     success_url = '/'
 
@@ -75,6 +75,7 @@ def change_status(request):
         post.save()
 
     return redirect('/')
+
 
 def change_status_zakoncz(request):
     post_id = request.GET.get('post_id')

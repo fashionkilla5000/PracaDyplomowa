@@ -8,9 +8,9 @@ class Post(models.Model):
     date = models.DateTimeField(default=timezone.now)
 
     no_of_likes = models.CharField(max_length=50, null = True, blank=True)
-
+    miasto = models.CharField(max_length=50, null=False, default="Olsztyn")
     adres = models.CharField(max_length=50, null = False)
-    nr_domu = models.CharField(max_length=4, null = False, blank=True)
+    nr_mieszkania = models.CharField(max_length=4, null = False, blank=True)
 
     choose_payment = (
         ('karta','Karta'),
@@ -48,3 +48,4 @@ class LikePost(models.Model):
 
     def __str__(self):
         return self.username
+

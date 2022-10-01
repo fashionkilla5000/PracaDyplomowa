@@ -69,11 +69,13 @@ background-color:red;
 .nav-link{
     text-align:right;
 }
-
-.col-md-12{
-padding-bottom:30px;
+.detail{
+    background-color:#fff;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    border-radius: 20px 20px 20px 20px;
+    text-align: center;
 }
-
 .col-md-10{
     background-color:#fff;
     margin-bottom:20px;
@@ -103,4 +105,9 @@ padding-bottom:30px;
     text-align:center;
     padding-top:15px;
     padding-bottom:15px;
+}
+
+#nickname{
+color: #ffffff;
+
 }
