@@ -10,8 +10,11 @@
             <div class="dane">
                 <h4><a class="article-title">{{ user.restauracja }}</a> </h4>
 
-                <small class="text-muted">{{ post.date|date:"D, d M, G:i" }}</small>
+                <h6>Dodano: {{ post.date|time }}</h6>
                 <h4><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}/{{post.nr_mieszkania}}</a> </h4>
+                {% if user.stanowisko == "Driver" %}
+                <h5>Odbiór za: {{ post.czas_przygotowania }} min</h5>
+                {% endif %}
 
                 {% if post.no_of_likes != None %}
                 <h6> Zabiera: {{ post.no_of_likes }} </h6>
@@ -21,13 +24,18 @@
         </div>
         <div class="col-md-2">
             {% if user.stanowisko == "Driver" %}
-            <button class="button btn-rounded" onclick=javascript:location.href="/like-post?post_id={{post.id}}"> Zabierz </button>
+            <div class="przycisk">
+                <button class="button btn-rounded btn-nawiguj" onclick=javascript:location.href="/like-post?post_id={{post.id}}"> Zabierz </button>
+                <button class="button btn-rounded btn-zadzwon" onclick=javascript:location.href="/dodaj-five?post_id={{post.id}}"> +5 </button>
+                <button class="button btn-rounded btn-danger" onclick=javascript:location.href="/dodaj-ten?post_id={{post.id}}"> +10 </button>
+            </div>
+
             {% else %}
             {% if post.no_of_likes %}
 
                 <script>
                     Swal.fire({
-                      title: '{{ post.no_of_likes }} \n zabierze zamówienie: \n {{ post.adres }}',
+                      title: '{{ post.no_of_likes }} \n zabierze zamówienie: \n {{ post.adres }} \n Odbiór: {{ post.czas_odebrania|time }}',
                       showCancelButton: true,
                       confirmButtonText: 'Save',
                     }).then((result) => {

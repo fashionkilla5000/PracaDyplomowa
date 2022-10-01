@@ -2,6 +2,7 @@ from django.contrib import messages
 from .models import Post, LikePost
 from users.models import CustomUser
 from django.contrib.auth.mixins import LoginRequiredMixin
+from datetime import timedelta, datetime
 
 from django.shortcuts import render, redirect
 from django.views.generic import (
@@ -11,14 +12,6 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-
-
-# def home(request):
-#     context = {
-#         'posts': Posts.objects.all()
-#     }
-#     return render(request, 'posts/oczekujace.html', context)
-#
 
 class PostListView_oczekujace(LoginRequiredMixin, ListView):
     model = Post
@@ -46,7 +39,7 @@ class PostDetailView(LoginRequiredMixin, DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['miasto','adres', 'nr_mieszkania', 'płatność', 'kwota', 'telefon', 'komentarz', 'platforma']
+    fields = ['miasto','adres', 'nr_mieszkania', 'czas_przygotowania', 'płatność', 'kwota', 'telefon', 'komentarz', 'platforma']
     login_url = '/login/'
     success_url = '/'
 
@@ -88,6 +81,24 @@ def change_status_zakoncz(request):
 
     return redirect('post/trasa/')
 
+def dodaj_five(request):
+    post_id = request.GET.get('post_id')
+    post = Post.objects.get(id=post_id)
+
+    post.czas_przygotowania = post.czas_przygotowania + 5
+    post.save()
+
+    return redirect('/')
+
+def dodaj_ten(request):
+    post_id = request.GET.get('post_id')
+    post = Post.objects.get(id=post_id)
+
+    post.czas_przygotowania = post.czas_przygotowania + 10
+    post.save()
+
+    return redirect('/')
+
 def like_post(request):
     username = request.user.username
     post_id = request.GET.get('post_id')
@@ -95,6 +106,8 @@ def like_post(request):
 
     post = Post.objects.get(id=post_id)
 
+    post.czas_odebrania = datetime.now() + timedelta(minutes=post.czas_przygotowania)
+    post.save()
 
     like_filter = LikePost.objects.filter(post_id=post_id, username=username).first()
 

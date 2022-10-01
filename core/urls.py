@@ -28,4 +28,6 @@ urlpatterns = [
     path('like-post', views.like_post, name='like-post'),
     path('change-status', views.change_status, name='change-status'),
     path('change-status-zakoncz', views.change_status_zakoncz, name='change-status-zakoncz'),
+    path('dodaj-ten', views.dodaj_ten, name='dodaj-ten'),
+    path('dodaj-five', views.dodaj_five, name='dodaj-five'),
 ]

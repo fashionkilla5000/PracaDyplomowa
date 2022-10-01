@@ -1,11 +1,28 @@
 from django.db import models
 from django.utils import timezone
 from phone_field import PhoneField
+import datetime
 
 
 class Post(models.Model):
     id = models.AutoField(primary_key=True)
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(default=datetime.datetime.now())
+
+    LOW = 15
+    NORMAL = 20
+    HIGH = 30
+    VHIGH = 45
+    HIGHEST = 60
+
+    STATUS_CHOICES = (
+        (LOW, '15 min'),
+        (NORMAL, '20 min'),
+        (HIGH, '30 min'),
+        (VHIGH, '45 min'),
+        (HIGHEST, '60 min'),
+    )
+    czas_przygotowania = models.IntegerField(default=LOW, choices=STATUS_CHOICES)
+    czas_odebrania = models.DateTimeField(null=True, blank=True)
 
     no_of_likes = models.CharField(max_length=50, null = True, blank=True)
     miasto = models.CharField(max_length=50, null=False, default="Olsztyn")
