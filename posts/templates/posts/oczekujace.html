@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-md-10">
             <div class="dane">
-                <h4><a class="article-title">{{ user.restauracja }}</a> </h4>
+                <h4><a class="article-title">{{ post.restauracja }}</a> </h4>
 
                 <h6>Dodano: {{ post.date|time }}</h6>
                 <h4><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}/{{post.nr_mieszkania}}</a> </h4>
@@ -31,7 +31,11 @@
             </div>
 
             {% else %}
-            {% if post.no_of_likes %}
+            <div class="przycisk">
+                <button class="button btn-rounded btn-nawiguj" onclick=javascript:location.href="/post/{{post.id}}/delete"> Usuń </button>
+                <button class="button btn-rounded btn-zadzwon" onclick=javascript:location.href="/post/{{post.id}}/update"> Edit </button>
+            </div>
+            {% if post.no_of_likes and user.restauracja == post.restauracja %}
 
                 <script>
                     Swal.fire({

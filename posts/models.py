@@ -1,13 +1,14 @@
 from django.db import models
 from django.utils import timezone
 from phone_field import PhoneField
+from django.conf import settings
 import datetime
 
 
 class Post(models.Model):
     id = models.AutoField(primary_key=True)
     date = models.DateTimeField(default=datetime.datetime.now())
-
+    restauracja = models.CharField(max_length=50)
     LOW = 15
     NORMAL = 20
     HIGH = 30

@@ -40,6 +40,13 @@ class PostDetailView(LoginRequiredMixin, DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['miasto','adres', 'nr_mieszkania', 'czas_przygotowania', 'płatność', 'kwota', 'telefon', 'komentarz', 'platforma']
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.restauracja = self.request.user.restauracja
+        # article.save()  # This is redundant, see comments.
+        return super(PostCreateView, self).form_valid(form)
+
     login_url = '/login/'
     success_url = '/'
 
