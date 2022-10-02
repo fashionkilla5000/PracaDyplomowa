@@ -104,10 +104,13 @@ background-color:red;
     background-color:white;
     text-align:center;
     padding-top:15px;
-    padding-bottom:25px;
+    padding-bottom:15px;
 }
 
 #nickname{
 color: #ffffff;
 
+}
+.col-md-12{
+padding-bottom:30px;
 }
