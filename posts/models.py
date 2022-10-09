@@ -24,6 +24,8 @@ class Post(models.Model):
     )
     czas_przygotowania = models.IntegerField(default=LOW, choices=STATUS_CHOICES)
     czas_odebrania = models.DateTimeField(null=True, blank=True)
+    czas_dostarczenia = models.DateTimeField(null=True, blank=True)
+    status = models.CharField(max_length=50,default="Oczekujące")
 
     no_of_likes = models.CharField(max_length=50, null = True, blank=True)
     miasto = models.CharField(max_length=50, null=False, default="Olsztyn")

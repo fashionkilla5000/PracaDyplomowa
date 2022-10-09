@@ -16,6 +16,14 @@
           <td>Dostawca</td>
           <th scope="row">{{ post.no_of_likes }}</th>
         </tr>
+         <tr>
+          <td>Czas odbioru</td>
+          <th scope="row">{{ post.czas_odebrania|time }}</th>
+        </tr>
+         <tr>
+          <td>Czas dostarczenia</td>
+          <th scope="row">{{ post.czas_dostarczenia|time }}</th>
+        </tr>
         <tr>
           <td>Płatność</td>
           <th scope="row">{{ post.płatność }}</th>

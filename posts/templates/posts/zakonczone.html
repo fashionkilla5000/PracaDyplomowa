@@ -3,7 +3,7 @@
 {% block content %}
 
     {% for post in posts %}
-    {% if post.zakonczone %}
+    {% if post.zakonczone and user.restauracja == post.restauracja%}
 
     <div class="row">
         <div class="col-md-10">

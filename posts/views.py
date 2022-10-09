@@ -69,7 +69,6 @@ def change_status(request):
     post = Post.objects.get(id=post_id)
 
     if post.no_of_likes != None:
-        post.oczekujace = False
         post.trasa = True
         post.zakonczone = False
         post.save()
@@ -81,6 +80,7 @@ def change_status_zakoncz(request):
     post_id = request.GET.get('post_id')
     post = Post.objects.get(id=post_id)
 
+    post.czas_dostarczenia = datetime.now()
     post.oczekujace = False
     post.trasa = False
     post.zakonczone = True
@@ -105,6 +105,15 @@ def dodaj_ten(request):
     post.save()
 
     return redirect('/')
+
+def nawiguj(request):
+    post_id = request.GET.get('post_id')
+    post = Post.objects.get(id=post_id)
+
+    post.status = 'W trakcie Dostarczania'
+    post.save()
+
+    return redirect('https://www.google.com/maps/place/+'+post.adres+',+'+post.miasto)
 
 def like_post(request):
     username = request.user.username

@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-10 trasa">
             <div class="dane">
-                <small class="text-muted">{{ post.date|date:"D, d M, G:i" }}</small>
+                <small class="text-muted">{{ post.date|time }}</small>
                 <h4><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}/{{post.nr_mieszkania}}</a> </h4>
                 <br>
 
@@ -36,7 +36,7 @@
         </div>
         <div class="col-md-2 text-center" id="przycisk">
             <div class="przycisk">
-                <button class="button btn-rounded btn-nawiguj" onclick="javascript:location.href='https://www.google.com/maps/place/{{ post.adres }},+{{post.miasto}}'"> Nawiguj </button>
+                <button class="button btn-rounded btn-nawiguj" onclick=javascript:location.href="/nawiguj?post_id={{post.id}}"> Nawiguj </button>
                 <button class="button btn-rounded btn-zadzwon" onclick="javascript:location.href='tel:{{post.telefon}}'"> Zadzwoń </button>
                 <button class="button btn-rounded btn-danger" onclick=javascript:location.href="/change-status-zakoncz?post_id={{post.id}}"> Zakończ </button>
             </div>

@@ -18,6 +18,11 @@
 
                 {% if post.no_of_likes != None %}
                 <h6> Zabiera: {{ post.no_of_likes }} </h6>
+                {% if post.status != "Oczekujące" %}
+                    <h6 id="green"> Status: {{ post.status }} </h6>
+                {% else %}
+                    <h6 id="red"> Status: {{ post.status }} </h6>
+                {% endif %}
                 {% endif %}
             </div>
 
@@ -30,12 +35,18 @@
                 <button class="button btn-rounded btn-danger" onclick=javascript:location.href="/dodaj-ten?post_id={{post.id}}"> +10 </button>
             </div>
 
-            {% else %}
+            {% endif %}
+
+            {% if user.stanowisko == "Restaurator" and user.restauracja == post.restauracja %}
+
             <div class="przycisk">
                 <button class="button btn-rounded btn-nawiguj" onclick=javascript:location.href="/post/{{post.id}}/delete"> Usuń </button>
                 <button class="button btn-rounded btn-zadzwon" onclick=javascript:location.href="/post/{{post.id}}/update"> Edit </button>
             </div>
-            {% if post.no_of_likes and user.restauracja == post.restauracja %}
+
+            {% endif %}
+
+            {% if post.no_of_likes and post.trasa == False and user.restauracja == post.restauracja and user.stanowisko == "Restaurator"%}
 
                 <script>
                     Swal.fire({
@@ -53,7 +64,7 @@
                 </script>
 
             {% endif %}
-            {% endif %}
+
         </div>
     </div>
 
