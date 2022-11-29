@@ -1,5 +1,5 @@
 from django.contrib import messages
-from .models import Post, LikePost
+from .models import Post, KtoDostarcza, Restauracja
 from users.models import CustomUser
 from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import timedelta, datetime
@@ -39,11 +39,12 @@ class PostDetailView(LoginRequiredMixin, DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['miasto','adres', 'nr_mieszkania', 'czas_przygotowania', 'płatność', 'kwota', 'telefon', 'komentarz', 'platforma']
+    fields = ['adres', 'nr_mieszkania', 'czas_przygotowania', 'płatność', 'kwota', 'telefon', 'komentarz', 'platforma']
 
     def form_valid(self, form):
         post = form.save(commit=False)
-        post.restauracja = self.request.user.restauracja
+        post.restaurant = self.request.user.restaurant
+        post.miasto = self.request.user.restaurant.miasto
         # article.save()  # This is redundant, see comments.
         return super(PostCreateView, self).form_valid(form)
 
@@ -68,7 +69,7 @@ def change_status(request):
     post_id = request.GET.get('post_id')
     post = Post.objects.get(id=post_id)
 
-    if post.no_of_likes != None:
+    if post.zabrane_przez != None:
         post.trasa = True
         post.zakonczone = False
         post.save()
@@ -115,30 +116,31 @@ def nawiguj(request):
 
     return redirect('https://www.google.com/maps/place/+'+post.adres+',+'+post.miasto)
 
-def like_post(request):
+def zabierz(request):
     username = request.user.username
     post_id = request.GET.get('post_id')
-
 
     post = Post.objects.get(id=post_id)
 
     post.czas_odebrania = datetime.now() + timedelta(minutes=post.czas_przygotowania)
     post.save()
 
-    like_filter = LikePost.objects.filter(post_id=post_id, username=username).first()
+    zabierz_filter = KtoDostarcza.objects.filter(post_id=post_id, username=username).first()
 
-    if like_filter == None:
-        new_like = LikePost.objects.create(post_id=post_id, username=username)
-        new_like.save()
-        post.no_of_likes = username
+    if zabierz_filter == None:
+        nowy_zabieracz = KtoDostarcza.objects.create(post_id=post_id, username=username)
+        nowy_zabieracz.save()
+        post.zabrane_przez = username
 
 
         post.save()
 
         return redirect('/')
     else:
-        like_filter.delete()
-        post.no_of_likes = None
+        zabierz_filter.delete()
+        post.zabrane_przez = None
+        post.oczekujace = True
+        post.trasa = False
         post.status = 'oczekujace'
 
 

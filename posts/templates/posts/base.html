@@ -36,7 +36,7 @@
             <a class="nav-link" >Użytkownik: {{ user.username }} <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Informacje o autorze</a>
+            <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Wyloguj się</a>

@@ -16,9 +16,9 @@
                 <h5>Odbiór za: {{ post.czas_przygotowania }} min</h5>
                 {% endif %}
 
-                {% if post.no_of_likes != None %}
-                <h6> Zabiera: {{ post.no_of_likes }} </h6>
-                {% if post.status != "Oczekujące" %}
+                {% if post.zabrane_przez != None %}
+                <h6> Zabiera: {{ post.zabrane_przez }} </h6>
+                {% if post.trasa %}
                     <h6 id="green"> Status: {{ post.status }} </h6>
                 {% else %}
                     <h6 id="red"> Status: {{ post.status }} </h6>
@@ -30,14 +30,14 @@
         <div class="col-md-2">
             {% if user.stanowisko == "Driver" %}
             <div class="przycisk">
-                <button class="button btn-rounded btn-nawiguj" onclick=javascript:location.href="/like-post?post_id={{post.id}}"> Zabierz </button>
+                <button class="button btn-rounded btn-nawiguj" onclick=javascript:location.href="/zabierz?post_id={{post.id}}"> Zabierz </button>
                 <button class="button btn-rounded btn-zadzwon" onclick=javascript:location.href="/dodaj-five?post_id={{post.id}}"> +5 </button>
                 <button class="button btn-rounded btn-danger" onclick=javascript:location.href="/dodaj-ten?post_id={{post.id}}"> +10 </button>
             </div>
 
             {% endif %}
 
-            {% if user.stanowisko == "Restaurator" and user.restauracja == post.restauracja %}
+            {% if user.stanowisko == "Restaurator" and user.restaurant == post.restaurant %}
 
             <div class="przycisk">
                 <button class="button btn-rounded btn-nawiguj" onclick=javascript:location.href="/post/{{post.id}}/delete"> Usuń </button>
@@ -46,11 +46,11 @@
 
             {% endif %}
 
-            {% if post.no_of_likes and post.trasa == False and user.restauracja == post.restauracja and user.stanowisko == "Restaurator"%}
+            {% if post.zabrane_przez and post.trasa == False and user.restaurant == post.restaurant and user.stanowisko == "Restaurator"%}
 
                 <script>
                     Swal.fire({
-                      title: '{{ post.no_of_likes }} \n zabierze zamówienie: \n {{ post.adres }} \n Odbiór: {{ post.czas_odebrania|time }}',
+                      title: '{{ post.zabrane_przez }} \n zabierze zamówienie: \n {{ post.adres }} \n Odbiór: {{ post.czas_odebrania|time }}',
                       showCancelButton: true,
                       confirmButtonText: 'Save',
                     }).then((result) => {
@@ -68,16 +68,16 @@
         </div>
     </div>
 
+
+    {% endif %}
+    {% endfor %}
+
     <script>
         function autoRefresh() {
             window.location = window.location.href;
         }
         setInterval('autoRefresh()', 10000);
     </script>
-
-    {% endif %}
-    {% endfor %}
-
 
 
 {% endblock content %}

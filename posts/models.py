@@ -4,11 +4,18 @@ from phone_field import PhoneField
 from django.conf import settings
 import datetime
 
+class Restauracja(models.Model):
+    id = models.AutoField(primary_key=True)
+    nazwa = models.CharField(max_length=50)
+    miasto = models.CharField(max_length=50, default='Olsztyn')
+
+    def __str__(self):
+        return self.nazwa
 
 class Post(models.Model):
     id = models.AutoField(primary_key=True)
     date = models.DateTimeField(default=datetime.datetime.now())
-    restauracja = models.CharField(max_length=50)
+    restaurant = models.ForeignKey(Restauracja, on_delete=models.CASCADE, null=True)
     LOW = 15
     NORMAL = 20
     HIGH = 30
@@ -25,9 +32,8 @@ class Post(models.Model):
     czas_przygotowania = models.IntegerField(default=LOW, choices=STATUS_CHOICES)
     czas_odebrania = models.DateTimeField(null=True, blank=True)
     czas_dostarczenia = models.DateTimeField(null=True, blank=True)
-    status = models.CharField(max_length=50,default="Oczekujące")
 
-    no_of_likes = models.CharField(max_length=50, null = True, blank=True)
+    zabrane_przez = models.CharField(max_length=50, null = True, blank=True)
     miasto = models.CharField(max_length=50, null=False, default="Olsztyn")
     adres = models.CharField(max_length=50, null = False)
     nr_mieszkania = models.CharField(max_length=4, null = False, blank=True)
@@ -62,10 +68,9 @@ class Post(models.Model):
         ordering = ['date']
 
 
-class LikePost(models.Model):
+class KtoDostarcza(models.Model):
     post_id = models.CharField(max_length=500)
     username = models.CharField(max_length=100)
 
     def __str__(self):
         return self.username
-

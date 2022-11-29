@@ -25,7 +25,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('', include('posts.urls')),
-    path('like-post', views.like_post, name='like-post'),
+    path('zabierz', views.zabierz, name='zabierz'),
     path('change-status', views.change_status, name='change-status'),
     path('change-status-zakoncz', views.change_status_zakoncz, name='change-status-zakoncz'),
     path('dodaj-ten', views.dodaj_ten, name='dodaj-ten'),
