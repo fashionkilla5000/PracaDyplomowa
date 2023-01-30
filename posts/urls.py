@@ -6,11 +6,13 @@ from .views import (
     PostDetailView,
     PostCreateView,
     PostUpdateView,
-    PostDeleteView
+    PostDeleteView,
+    PostStreamView,
 )
 
 urlpatterns = [
     path('', PostListView_oczekujace.as_view(), name='posts-home'),
+    path('stream/', PostStreamView.as_view(), name='stream'),
     path('post/trasa/', PostListView_trasa.as_view(), name='posts-trasa'),
     path('post/zakonczone/', PostListView_zakonczone.as_view(), name='posts-zakonczone'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),

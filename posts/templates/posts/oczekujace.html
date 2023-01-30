@@ -5,79 +5,110 @@
     {% for post in posts %}
     {% if post.oczekujace %}
 
-    <div class="row">
-        <div class="col-md-10">
-            <div class="dane">
-                <h4><a class="article-title">{{ post.restauracja }}</a> </h4>
+    <div class="row" id="inner"></div>
 
-                <h6>Dodano: {{ post.date|time }}</h6>
-                <h4><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.adres }}/{{post.nr_mieszkania}}</a> </h4>
-                {% if user.stanowisko == "Driver" %}
-                <h5>Odbiór za: {{ post.czas_przygotowania }} min</h5>
-                {% endif %}
+    {% endif %}
+    {%endfor%}
 
-                {% if post.zabrane_przez != None %}
-                <h6> Zabiera: {{ post.zabrane_przez }} </h6>
-                {% if post.trasa %}
-                    <h6 id="green"> Status: {{ post.status }} </h6>
-                {% else %}
-                    <h6 id="red"> Status: {{ post.status }} </h6>
-                {% endif %}
-                {% endif %}
-            </div>
+<script type="text/javascript">
 
-        </div>
-        <div class="col-md-2">
-            {% if user.stanowisko == "Driver" %}
-            <div class="przycisk">
-                <button class="button btn-rounded btn-nawiguj" onclick=javascript:location.href="/zabierz?post_id={{post.id}}"> Zabierz </button>
-                <button class="button btn-rounded btn-zadzwon" onclick=javascript:location.href="/dodaj-five?post_id={{post.id}}"> +5 </button>
-                <button class="button btn-rounded btn-danger" onclick=javascript:location.href="/dodaj-ten?post_id={{post.id}}"> +10 </button>
-            </div>
+    var eventsource = new EventSource("{% url 'stream'%}")
 
-            {% endif %}
+    eventsource.onopen = function(){
+        console.log("we open connection");
+    }
 
-            {% if user.stanowisko == "Restaurator" and user.restaurant == post.restaurant %}
+    eventsource.onmessage = function(e) {
+        console.log(e)
+        final_data = JSON.parse(e.data)
+        console.log("final data: ",final_data)
+        content = "";
 
-            <div class="przycisk">
-                <button class="button btn-rounded btn-nawiguj" onclick=javascript:location.href="/post/{{post.id}}/delete"> Usuń </button>
-                <button class="button btn-rounded btn-zadzwon" onclick=javascript:location.href="/post/{{post.id}}/update"> Edit </button>
-            </div>
+        final_data.forEach(function(item){
+            console.log("item: ",item)
 
-            {% endif %}
+            content += buildPostContent(item['id'],item['adres'],item['nr_mieszkania'],item['date'],item['restaurant__nazwa'],
+            item['czas_przygotowania'],item['czas_odebrania'],item['zabrane_przez'],item['status'],item['trasa'],item['zakonczone'])
 
-            {% if post.zabrane_przez and post.trasa == False and user.restaurant == post.restaurant and user.stanowisko == "Restaurator"%}
+            })
 
-                <script>
-                    Swal.fire({
-                      title: '{{ post.zabrane_przez }} \n zabierze zamówienie: \n {{ post.adres }} \n Odbiór: {{ post.czas_odebrania|time }}',
+
+        if(document.getElementById('inner') != null){
+            document.getElementById('inner').innerHTML = content;
+        }
+
+    }
+
+    eventsource.onerror = function(e) {
+        console.log('error, e');
+    }
+
+
+
+    function buildPostContent(id, adres, nr_mieszkania, date, restauracja, czas_przygotowania, czas_odebrania, zabrane_przez, status,
+    trasa, zakonczone) {
+
+    var date_odbior = new Date(czas_odebrania)
+    var title = "Kierowca: "+zabrane_przez + "\n zabierze zamówienie: \n" + adres + "\n Odbiór: " + date_odbior.toLocaleTimeString()
+    console.log({{ post.zabrane_przez }})
+    var date_obj = new Date(date)
+    var stanowisko = "{{user.stanowisko}}"
+    var user_restauracja = "{{user.restaurant}}"
+
+
+    if(zabrane_przez != null && trasa == false && user_restauracja == restauracja && stanowisko == "Restaurator" && zakonczone==false){
+        Swal.fire({
+                      title: title,
                       showCancelButton: true,
                       confirmButtonText: 'Save',
                     }).then((result) => {
                       if (result.isConfirmed) {
-                        window.location.href = "/change-status?post_id={{post.id}}";
-
+                        window.location="/change-status?post_id="+id;
                       } else if (result.isDenied) {
                         Swal.fire('Changes are not saved', '', 'info')
                       }
                     })
-                </script>
+    }
 
-            {% endif %}
-
-        </div>
+    content =
+    `
+    <div class="col-md-10">
+            <div class="dane" >
+                <h4><a class="article-title">${ restauracja }</a> </h4>
+                <h6>Dodano: ${date_obj.toLocaleTimeString()}</h6>
+                <h4><a class="article-title" href='/post/${id}'>${adres}/${nr_mieszkania}</a> </h4>
+                ${stanowisko == "Driver" ? `<h5>Odbiór: ${czas_przygotowania} min</h5>`:''}
+                ${zabrane_przez ? `<h6> Zabiera: ${zabrane_przez} </h6>` : ``}
+                ${trasa ? `<h6 id="green"> Status: ${status}`:`<h6 id="red"> Status: ${status}`}
+            </div>
     </div>
 
+    <div class="col-md-2">
+            ${ stanowisko == "Driver" ?
+            `<div class="przycisk">
+                <button class="button btn-rounded btn-nawiguj" onclick="location.href='/zabierz?post_id=${id}'"> Zabierz </button>
+                <button class="button btn-rounded btn-zadzwon" onclick="location.href='/dodaj-five?post_id=${id}'"> +5 </button>
+                <button class="button btn-rounded btn-danger" onclick="location.href='/dodaj-ten?post_id=${id}'"> +10 </button>
+            </div>`
+            :''}
+            ${ stanowisko == "Restaurator" && user_restauracja == restauracja ?
+            `<div class="przycisk">
+                <button class="button btn-rounded btn-nawiguj" onclick="location.href='/post/${id}/delete'"> Usuń </button>
+                <button class="button btn-rounded btn-zadzwon" onclick="location.href='/post/${id}/update'"> Edit </button>
+            </div>`
+            :''}
+        </div>
+    `;
 
-    {% endif %}
-    {% endfor %}
+    if(zakonczone==true)
+    {
+    content='';
+    }
 
-    <script>
-        function autoRefresh() {
-            window.location = window.location.href;
-        }
-        setInterval('autoRefresh()', 10000);
-    </script>
+	return content
 
+  }
+
+</script>
 
 {% endblock content %}

@@ -1,4 +1,10 @@
+import json
+from django.utils.formats import localize
 from django.contrib import messages
+from django.core.serializers.json import DjangoJSONEncoder
+from django.http import StreamingHttpResponse
+from django.views import View
+import time
 from .models import Post, KtoDostarcza, Restauracja
 from users.models import CustomUser
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -131,7 +137,7 @@ def zabierz(request):
         nowy_zabieracz = KtoDostarcza.objects.create(post_id=post_id, username=username)
         nowy_zabieracz.save()
         post.zabrane_przez = username
-
+        post.status = 'oczekujace'
 
         post.save()
 
@@ -141,8 +147,27 @@ def zabierz(request):
         post.zabrane_przez = None
         post.oczekujace = True
         post.trasa = False
-        post.status = 'oczekujace'
 
 
         post.save()
         return redirect('/')
+
+def event_stream():
+
+    initial_data = ""
+    while True:
+        data = json.dumps(list(Post.objects.order_by("-id").values("id","adres","nr_mieszkania","date",
+                                        "restaurant__nazwa", "czas_przygotowania","czas_odebrania","zabrane_przez","status",
+                                                                   "trasa","zakonczone")), cls=DjangoJSONEncoder)
+
+        if not initial_data == data:
+            yield "\ndata: {}\n\n".format(data)
+            initial_data = data
+        time.sleep(1)
+
+class PostStreamView(View):
+
+    def get(self, request):
+        response = StreamingHttpResponse(event_stream())
+        response['Content-Type'] = 'text/event-stream'
+        return response

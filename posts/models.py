@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import render
 from django.utils import timezone
 from phone_field import PhoneField
 from django.conf import settings
@@ -14,7 +15,7 @@ class Restauracja(models.Model):
 
 class Post(models.Model):
     id = models.AutoField(primary_key=True)
-    date = models.DateTimeField(default=datetime.datetime.now())
+    date = models.DateTimeField(auto_now_add=True)
     restaurant = models.ForeignKey(Restauracja, on_delete=models.CASCADE, null=True)
     LOW = 15
     NORMAL = 20
@@ -32,6 +33,7 @@ class Post(models.Model):
     czas_przygotowania = models.IntegerField(default=LOW, choices=STATUS_CHOICES)
     czas_odebrania = models.DateTimeField(null=True, blank=True)
     czas_dostarczenia = models.DateTimeField(null=True, blank=True)
+    status = models.CharField(max_length=50, null=False, blank=True, default="oczekujące")
 
     zabrane_przez = models.CharField(max_length=50, null = True, blank=True)
     miasto = models.CharField(max_length=50, null=False, default="Olsztyn")
