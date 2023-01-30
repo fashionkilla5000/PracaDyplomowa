@@ -21,17 +21,13 @@
     eventsource.onmessage = function(e) {
         console.log(e)
         final_data = JSON.parse(e.data)
-        console.log("final data: ",final_data)
+
         content = "";
 
         final_data.forEach(function(item){
-            console.log("item: ",item)
-
             content += buildPostContent(item['id'],item['adres'],item['nr_mieszkania'],item['date'],item['restaurant__nazwa'],
             item['czas_przygotowania'],item['czas_odebrania'],item['zabrane_przez'],item['status'],item['trasa'],item['zakonczone'])
-
             })
-
 
         if(document.getElementById('inner') != null){
             document.getElementById('inner').innerHTML = content;
@@ -50,7 +46,6 @@
 
     var date_odbior = new Date(czas_odebrania)
     var title = "Kierowca: "+zabrane_przez + "\n zabierze zamówienie: \n" + adres + "\n Odbiór: " + date_odbior.toLocaleTimeString()
-    console.log({{ post.zabrane_przez }})
     var date_obj = new Date(date)
     var stanowisko = "{{user.stanowisko}}"
     var user_restauracja = "{{user.restaurant}}"
